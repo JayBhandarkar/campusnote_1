@@ -1,0 +1,15 @@
+{
+  "name": "campusnotes",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CampusNotes — Centralized Web-Based Study Material Sharing and Management Platform",
+  "scripts": {
+    "server": "npm --prefix server run dev",
+    "client": "npm --prefix client run dev",
+    "seed:academic": "npm --prefix server run seed:academic",
+    "seed:admin": "npm --prefix server run seed:admin",
+    "seed:all": "npm --prefix server run seed:all",
+    "test:server": "npm --prefix server test",
+    "build:client": "npm --prefix client run build"
+  }
+}

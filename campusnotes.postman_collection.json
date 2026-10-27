@@ -1,0 +1,277 @@
+{
+  "info": {
+    "name": "CampusNotes REST API",
+    "_postman_id": "campusnotes-api-collection-v1",
+    "description": "Postman Collection for CampusNotes — A Centralized Web-Based Study Material Sharing and Management Platform",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    { "key": "baseUrl", "value": "http://localhost:5000/api/v1" },
+    { "key": "studentToken", "value": "" },
+    { "key": "facultyToken", "value": "" },
+    { "key": "adminToken", "value": "" },
+    { "key": "resourceId", "value": "" },
+    { "key": "deptId", "value": "" },
+    { "key": "subjectId", "value": "" },
+    { "key": "unitId", "value": "" }
+  ],
+  "item": [
+    {
+      "name": "Authentication",
+      "item": [
+        {
+          "name": "Login (Student)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@campusnotes.edu\",\n  \"password\": \"StudentPassword@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login (Faculty)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"faculty@campusnotes.edu\",\n  \"password\": \"FacultyPassword@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Login (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"admin@campusnotes.edu\",\n  \"password\": \"AdminPassword@123\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/login", "host": ["{{baseUrl}}"], "path": ["auth", "login"] }
+          }
+        },
+        {
+          "name": "Register Student",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Alice Smith\",\n  \"email\": \"alice@campusnotes.edu\",\n  \"password\": \"StudentPass@123\",\n  \"confirmPassword\": \"StudentPass@123\",\n  \"semester\": 5\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/register", "host": ["{{baseUrl}}"], "path": ["auth", "register"] }
+          }
+        },
+        {
+          "name": "Get Current Profile (Me)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{studentToken}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/me", "host": ["{{baseUrl}}"], "path": ["auth", "me"] }
+          }
+        },
+        {
+          "name": "Forgot Password",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Content-Type", "value": "application/json" }],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"student@campusnotes.edu\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/auth/forgot-password", "host": ["{{baseUrl}}"], "path": ["auth", "forgot-password"] }
+          }
+        },
+        {
+          "name": "Logout",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{studentToken}}" }],
+            "url": { "raw": "{{baseUrl}}/auth/logout", "host": ["{{baseUrl}}"], "path": ["auth", "logout"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Academic Structure",
+      "item": [
+        {
+          "name": "Get Departments",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/departments", "host": ["{{baseUrl}}"], "path": ["departments"] }
+          }
+        },
+        {
+          "name": "Create Department (Admin)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{adminToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Civil Engineering\",\n  \"code\": \"CIVIL\",\n  \"description\": \"Department of Civil & Structural Engineering\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/departments", "host": ["{{baseUrl}}"], "path": ["departments"] }
+          }
+        },
+        {
+          "name": "Get Subjects",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/subjects?department={{deptId}}&semester=5",
+              "host": ["{{baseUrl}}"],
+              "path": ["subjects"],
+              "query": [
+                { "key": "department", "value": "{{deptId}}" },
+                { "key": "semester", "value": "5" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Units for Subject",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/subjects/{{subjectId}}/units", "host": ["{{baseUrl}}"], "path": ["subjects", "{{subjectId}}", "units"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Resources",
+      "item": [
+        {
+          "name": "Query Resources (Search & Filters)",
+          "request": {
+            "method": "GET",
+            "url": {
+              "raw": "{{baseUrl}}/resources?q=Operating&type=Notes&sort=latest&page=1&limit=12",
+              "host": ["{{baseUrl}}"],
+              "path": ["resources"],
+              "query": [
+                { "key": "q", "value": "Operating" },
+                { "key": "type", "value": "Notes" },
+                { "key": "sort", "value": "latest" },
+                { "key": "page", "value": "1" },
+                { "key": "limit", "value": "12" }
+              ]
+            }
+          }
+        },
+        {
+          "name": "Get Resource By ID",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/resources/{{resourceId}}", "host": ["{{baseUrl}}"], "path": ["resources", "{{resourceId}}"] }
+          }
+        },
+        {
+          "name": "Download Resource File",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/resources/{{resourceId}}/download", "host": ["{{baseUrl}}"], "path": ["resources", "{{resourceId}}", "download"] }
+          }
+        },
+        {
+          "name": "Preview Resource File",
+          "request": {
+            "method": "GET",
+            "url": { "raw": "{{baseUrl}}/resources/{{resourceId}}/preview", "host": ["{{baseUrl}}"], "path": ["resources", "{{resourceId}}", "preview"] }
+          }
+        },
+        {
+          "name": "Get Verification Queue (Faculty/Admin)",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{facultyToken}}" }],
+            "url": { "raw": "{{baseUrl}}/resources/queue", "host": ["{{baseUrl}}"], "path": ["resources", "queue"] }
+          }
+        },
+        {
+          "name": "Verify Resource (Faculty/Admin)",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{facultyToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"status\": \"Approved\",\n  \"note\": \"Verified notes following current syllabus.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/resources/{{resourceId}}/verification", "host": ["{{baseUrl}}"], "path": ["resources", "{{resourceId}}", "verification"] }
+          }
+        },
+        {
+          "name": "Bookmark Resource",
+          "request": {
+            "method": "POST",
+            "header": [{ "key": "Authorization", "value": "Bearer {{studentToken}}" }],
+            "url": { "raw": "{{baseUrl}}/resources/{{resourceId}}/bookmark", "host": ["{{baseUrl}}"], "path": ["resources", "{{resourceId}}", "bookmark"] }
+          }
+        },
+        {
+          "name": "Remove Bookmark",
+          "request": {
+            "method": "DELETE",
+            "header": [{ "key": "Authorization", "value": "Bearer {{studentToken}}" }],
+            "url": { "raw": "{{baseUrl}}/resources/{{resourceId}}/bookmark", "host": ["{{baseUrl}}"], "path": ["resources", "{{resourceId}}", "bookmark"] }
+          }
+        },
+        {
+          "name": "Report Resource",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json" },
+              { "key": "Authorization", "value": "Bearer {{studentToken}}" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"reason\": \"Wrong or Irrelevant Material\",\n  \"details\": \"Contains outdated syllabus topics.\"\n}"
+            },
+            "url": { "raw": "{{baseUrl}}/resources/{{resourceId}}/reports", "host": ["{{baseUrl}}"], "path": ["resources", "{{resourceId}}", "reports"] }
+          }
+        }
+      ]
+    },
+    {
+      "name": "Admin Management",
+      "item": [
+        {
+          "name": "Get Dashboard Statistics",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/dashboard", "host": ["{{baseUrl}}"], "path": ["admin", "dashboard"] }
+          }
+        },
+        {
+          "name": "Get Users List",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/users?page=1&limit=15", "host": ["{{baseUrl}}"], "path": ["admin", "users"] }
+          }
+        },
+        {
+          "name": "Get Reports List",
+          "request": {
+            "method": "GET",
+            "header": [{ "key": "Authorization", "value": "Bearer {{adminToken}}" }],
+            "url": { "raw": "{{baseUrl}}/admin/reports?status=Pending", "host": ["{{baseUrl}}"], "path": ["admin", "reports"] }
+          }
+        }
+      ]
+    }
+  ]
+}
