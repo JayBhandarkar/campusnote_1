@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Bookmark, ArrowRight } from 'lucide-react';
+import { Bookmark } from 'lucide-react';
 import { bookmarksApi } from '../api/bookmarks.api';
 import { ResourceCard } from '../components/ui/ResourceCard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';
 import { EmptyState } from '../components/ui/EmptyState';
-import { Link } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
 export const MyBookmarks = () => {

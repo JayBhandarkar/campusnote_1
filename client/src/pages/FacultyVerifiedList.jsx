@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ShieldCheck, ArrowRight, Download, BookOpen } from 'lucide-react';
+import { ShieldCheck } from 'lucide-react';
 import { api } from '../api/axios';
 import { ResourceCard } from '../components/ui/ResourceCard';
 import { CardSkeleton } from '../components/ui/LoadingSkeleton';

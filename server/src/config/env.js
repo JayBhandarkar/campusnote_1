@@ -14,7 +14,6 @@ export const env = {
   JWT_ACCESS_SECRET: process.env.JWT_ACCESS_SECRET || 'dev_jwt_secret_campusnotes_fallback_key',
   JWT_ACCESS_EXPIRES_IN: process.env.JWT_ACCESS_EXPIRES_IN || '7d',
   CLIENT_URL: process.env.CLIENT_URL || 'http://localhost:5173',
-  STORAGE_DRIVER: process.env.STORAGE_DRIVER || 'local',
   LOCAL_UPLOAD_DIR: process.env.LOCAL_UPLOAD_DIR || 'uploads',
   MAX_FILE_SIZE_MB: parseInt(process.env.MAX_FILE_SIZE_MB || '20', 10),
   ADMIN_NAME: process.env.ADMIN_NAME || 'System Administrator',
