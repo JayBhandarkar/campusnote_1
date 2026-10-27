@@ -26,3 +26,6 @@ Thumbs.db
 # Uploads directory contents (preserve folder structure, ignore uploaded files)
 server/uploads/*
 !server/uploads/.gitkeep
+
+
+TASK_MEMORY.md
