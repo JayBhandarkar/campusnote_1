@@ -1,3 +1,20 @@
+/**
+ * config/env.js — Environment Variables Configuration
+ *
+ * Reads environment variables from the .env file using the 'dotenv' package.
+ * All sensitive configuration (database URI, JWT secret, etc.) is stored
+ * in .env (which is NOT committed to git) for security.
+ *
+ * This file exports a single 'env' object that all other files import.
+ * This avoids scattering process.env.* calls throughout the codebase and
+ * provides sensible fallback defaults for local development.
+ *
+ * Key values:
+ *  - MONGODB_URI: Connection string for MongoDB Atlas
+ *  - JWT_ACCESS_SECRET: Secret key used to sign/verify JSON Web Tokens
+ *  - JWT_ACCESS_EXPIRES_IN: How long a login token stays valid (7 days)
+ *  - MAX_FILE_SIZE_MB: Maximum allowed file upload size
+ */
 import dotenv from 'dotenv';
 import path from 'path';
 import { fileURLToPath } from 'url';

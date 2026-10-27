@@ -1,3 +1,15 @@
+/**
+ * services/resource.service.js — Resource Business Logic Service
+ *
+ * Handles all core operations for study materials:
+ *  1. validateAcademicHierarchy: Ensures subject belongs to department and unit belongs to subject.
+ *  2. createResource:
+ *      - Computes SHA-256 cryptographic hash of the uploaded file.
+ *      - Checks database for identical existing files (prevents duplicate storage & spam).
+ *      - Auto-approves if uploaded by Faculty/Admin; marks 'Pending' for Students.
+ *  3. getResources: Full-text search, multi-field filtering (department, semester, subject, unit, type).
+ *  4. incrementDownloadCount: Safely tracks engagement metrics.
+ */
 import fs from 'fs';
 import { Resource } from '../models/Resource.js';
 import { Department } from '../models/Department.js';

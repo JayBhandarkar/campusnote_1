@@ -1,3 +1,17 @@
+/**
+ * app.js — Express Application Configuration
+ *
+ * This file creates and configures the Express app (but does NOT start the server).
+ * It sets up all middleware in the correct order:
+ *  - Helmet: adds secure HTTP response headers to protect against common attacks
+ *  - CORS: allows the React frontend (localhost:5173) to communicate with this API
+ *  - Body parsers: lets us read JSON data sent from the client in req.body
+ *  - Cookie parser: lets us read browser cookies (used for auth token)
+ *  - Rate limiter: blocks brute-force attacks on login/register (max 50 requests / 15 min)
+ *  - API routes: all /api/v1/* endpoints are registered here
+ *  - notFound: returns 404 for any unknown endpoint
+ *  - errorHandler: central error handler that formats all errors consistently
+ */
 import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';

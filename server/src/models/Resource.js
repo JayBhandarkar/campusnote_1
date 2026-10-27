@@ -1,3 +1,22 @@
+/**
+ * models/Resource.js — Resource (Study Material) Database Schema
+ *
+ * This is the core model of CampusNotes. Each document represents one
+ * uploaded study material (PDF, PPT, DOC, etc.).
+ *
+ * Key design decisions:
+ *  - Academic Hierarchy: Every resource must link to Department → Subject → Unit.
+ *    This enforces proper categorization so students can filter by their stream.
+ *  - fileHash: A SHA-256 cryptographic hash of the file content is stored.
+ *    Before saving a new upload, we check if this hash already exists in the DB.
+ *    If it does, we reject the upload with HTTP 409 (Conflict) — this prevents duplicate files.
+ *  - verificationStatus (Pending/Approved/Rejected): Faculty reviews each upload.
+ *    Only 'Approved' resources are shown as "Faculty Verified" on the platform.
+ *  - moderationStatus (Active/Flagged/Removed): Admin can remove inappropriate content.
+ *  - downloadCount: Tracks how many times a resource has been downloaded.
+ *  - Text index on title + description + tags: Enables full-text search across resources.
+ *  - Compound index on fileHash + moderationStatus: Speeds up duplicate detection queries.
+ */
 import mongoose from 'mongoose';
 
 export const RESOURCE_TYPES = [

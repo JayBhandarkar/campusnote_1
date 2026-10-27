@@ -1,3 +1,12 @@
+/**
+ * api/axios.js — Centralized HTTP Client Configuration
+ *
+ * Configures an Axios instance with base URL and automatic interceptors:
+ *  - Request Interceptor: Reads the JWT token from localStorage ('cn_token')
+ *    and attaches it to the HTTP Authorization header (`Bearer <token>`).
+ *  - Response Interceptor: Catches 401 Unauthorized responses (session expired)
+ *    and automatically clears credentials and redirects the user to `/login`.
+ */
 import axios from 'axios';
 
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'http://localhost:5000/api/v1';

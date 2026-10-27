@@ -1,3 +1,16 @@
+/**
+ * models/Report.js — User Reports Schema
+ *
+ * Allows students and faculty to flag resources for issues like:
+ * 'Duplicate', 'Wrong or Irrelevant Material', 'Inappropriate Content', etc.
+ *
+ * Key fields:
+ *  - resource: The resource being reported
+ *  - reportedBy: The user who created the report
+ *  - reason & details: Category of issue and user comments
+ *  - status: Workflow state ('Pending' -> 'Under Review' -> 'Resolved' / 'Rejected')
+ *  - reviewedBy & resolutionNote: Admin tracking who resolved the report and action taken
+ */
 import mongoose from 'mongoose';
 
 export const REPORT_REASONS = [

@@ -1,3 +1,13 @@
+/**
+ * context/AuthContext.jsx — Global Authentication State Provider
+ *
+ * Provides authentication state to the entire React application:
+ *  - Stores current user object and JWT token
+ *  - Reads initial session from browser localStorage ('cn_token', 'cn_user')
+ *  - On app load, verifies the session with the backend via authApi.getMe()
+ *  - Provides login, register, logout, and role helper flags (isStudent, isFaculty, isAdmin)
+ *  - Any component can access auth state using the custom hook: `useAuth()`
+ */
 import React, { createContext, useContext, useState, useEffect } from 'react';
 import { authApi } from '../api/auth.api';
 

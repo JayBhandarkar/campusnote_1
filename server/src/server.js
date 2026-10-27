@@ -1,3 +1,16 @@
+/**
+ * server.js — Application Entry Point
+ *
+ * This is the very first file Node.js runs when you start the backend.
+ * It is responsible for:
+ *  1. Making sure the local file upload folder exists
+ *  2. Connecting to MongoDB Atlas (cloud database)
+ *  3. Creating the HTTP server and starting it on the configured PORT
+ *  4. Handling graceful shutdown when the process is killed (SIGINT/SIGTERM)
+ *
+ * Tech Stack: Node.js + Express.js + MongoDB (via Mongoose)
+ * Run command: `npm run dev` from the /server directory
+ */
 import http from 'http';
 import app from './app.js';
 import { env } from './config/env.js';

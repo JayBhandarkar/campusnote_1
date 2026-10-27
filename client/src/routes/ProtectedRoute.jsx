@@ -1,3 +1,11 @@
+/**
+ * routes/ProtectedRoute.jsx — Frontend Route Guard
+ *
+ * Wraps private pages (e.g. Upload, Dashboard, Bookmarks, Admin):
+ *  - If auth state is still loading from localStorage/API: displays a loading spinner.
+ *  - If user is NOT logged in: redirects to `/login` and remembers the intended destination.
+ *  - If authenticated: renders the wrapped child page component.
+ */
 import React from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../context/AuthContext';

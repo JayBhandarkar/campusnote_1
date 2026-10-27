@@ -1,3 +1,15 @@
+/**
+ * models/Department.js — Academic Department Schema
+ *
+ * Represents an academic branch/department (e.g., Computer Science, Mechanical).
+ * Used as the top level of the academic hierarchy:
+ * Department -> Subject -> Unit -> Resource (Notes)
+ *
+ * Key fields:
+ *  - name: Full name of the department (e.g., "Computer Science and Engineering")
+ *  - code: Unique short code in uppercase (e.g., "CSE")
+ *  - isActive: Allows archiving/disabling a department without breaking existing notes
+ */
 import mongoose from 'mongoose';
 
 const departmentSchema = new mongoose.Schema(

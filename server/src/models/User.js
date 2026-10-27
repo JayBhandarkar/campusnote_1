@@ -1,3 +1,20 @@
+/**
+ * models/User.js — User Database Schema & Model
+ *
+ * Defines the structure of a User document in MongoDB using Mongoose.
+ * Three roles are supported: Student, Faculty, Admin.
+ *
+ * Key design decisions:
+ *  - passwordHash: The raw password is NEVER stored. It is hashed using bcrypt (salt rounds=10)
+ *    before saving. bcrypt is a one-way hashing algorithm designed for passwords.
+ *  - select: false on passwordHash means it won't be returned in queries by default (security).
+ *  - generateAuthToken(): Creates a signed JWT (JSON Web Token) containing the user's
+ *    id, email, and role. This token is sent to the client and used for all future requests.
+ *  - toJSON transform: Strips sensitive fields (passwordHash, resetPasswordToken) from
+ *    API responses automatically so they are never accidentally exposed.
+ *  - resetPasswordToken/resetPasswordExpire: Used for the "Forgot Password" flow.
+ *    A hashed token is stored in DB and emailed to the user to verify identity.
+ */
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 import jwt from 'jsonwebtoken';

@@ -1,3 +1,10 @@
+/**
+ * middleware/validate.js — Request Validation Middleware
+ *
+ * Uses Zod schemas to validate incoming request data (req.body, req.query, req.params)
+ * BEFORE route controllers execute. If validation fails, responds with 400 Bad Request
+ * and specific field-level error messages.
+ */
 import { ApiError } from '../utils/ApiError.js';
 
 export const validate = (schema) => (req, res, next) => {

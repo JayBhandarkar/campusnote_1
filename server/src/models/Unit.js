@@ -1,3 +1,14 @@
+/**
+ * models/Unit.js — Syllabus Unit / Chapter Schema
+ *
+ * Represents a module/chapter under a subject (e.g., Unit 1: Introduction to Trees).
+ *
+ * Key fields:
+ *  - title: Title of the syllabus unit
+ *  - unitNumber: Number of the unit (1 to 20)
+ *  - subject: ObjectId reference pointing to the parent Subject
+ *  - Compound index: `{ subject: 1, unitNumber: 1 }` prevents duplicate unit numbers in the same subject
+ */
 import mongoose from 'mongoose';
 
 const unitSchema = new mongoose.Schema(

@@ -1,3 +1,14 @@
+/**
+ * models/Subject.js — Academic Subject Schema
+ *
+ * Represents an individual subject/course belonging to a department.
+ *
+ * Key fields:
+ *  - name & code: Name of subject and subject course code (e.g., "Data Structures", "CS201")
+ *  - department: ObjectId reference linking this subject to its parent Department
+ *  - semester: Academic semester (1 through 8)
+ *  - Compound index: `{ code: 1, department: 1 }` ensures unique subject codes per department
+ */
 import mongoose from 'mongoose';
 
 const subjectSchema = new mongoose.Schema(

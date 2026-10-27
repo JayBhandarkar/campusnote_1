@@ -1,3 +1,15 @@
+/**
+ * middleware/errorHandler.js — Centralized Error Handling Middleware
+ *
+ * Catches all errors passed to `next(err)` throughout Express and formats
+ * them into a consistent JSON response:
+ *  - Mongoose CastError (invalid ObjectId) -> 404 Not Found
+ *  - Mongoose code 11000 (duplicate email, code, etc.) -> 409 Conflict
+ *  - Mongoose ValidationError (schema rule broken) -> 400 Bad Request
+ *  - JWT errors (tampered / expired token) -> 401 Unauthorized
+ *  - Multer errors (file too large) -> 413 Payload Too Large
+ *  - Hides error stack traces in production for security
+ */
 import { ApiError } from '../utils/ApiError.js';
 import { env } from '../config/env.js';
 
