@@ -32,16 +32,24 @@ app.use(
 );
 
 // CORS configuration
-const allowedOrigins = [env.CLIENT_URL, 'http://localhost:5173', 'http://127.0.0.1:5173'];
+const configuredClientUrl = (env.CLIENT_URL || '').trim().replace(/\/+$/, '');
+const allowedOrigins = [configuredClientUrl, 'http://localhost:5173', 'http://127.0.0.1:5173'];
+
 app.use(
   cors({
     origin: (origin, callback) => {
       // allow requests with no origin (like mobile apps, curl, postman)
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error('CORS policy: Not allowed by CORS origin restriction'));
+      if (!origin) return callback(null, true);
+
+      // Match configured origins
+      if (allowedOrigins.includes(origin)) return callback(null, true);
+
+      // Match any Vercel deployment for this app
+      if (/^https:\/\/campusnote-1.*\.vercel\.app$/.test(origin)) {
+        return callback(null, true);
       }
+
+      callback(new Error('CORS policy: Not allowed by CORS origin restriction'));
     },
     credentials: true,
     methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
